@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run --frozen ruff check .
+      - run: uv run --frozen ruff format --check .
+      - run: uv run --frozen mypy
+      - run: uv run --frozen clang-format --dry-run --Werror src/onnxcc/kernels.c embedded/startup.c embedded/app_main.c
+      - run: ONNXCC_CC=gcc ONNXCC_REQUIRE_SANITIZERS=1 uv run --frozen pytest -n 4
+      - run: ONNXCC_CC=clang uv run --frozen pytest -n 4 tests/test_golden.py tests/test_codegen.py tests/test_models.py
+
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: ONNXCC_CC=cc ONNXCC_REQUIRE_SANITIZERS=1 uv run --frozen pytest -n 3
