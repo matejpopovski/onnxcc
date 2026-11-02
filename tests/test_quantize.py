@@ -113,6 +113,53 @@ def test_float_consumer_input_blocks_int8_interface() -> None:
         compile_model(model, calibration=samples, quantize=QuantizeOptions(int8_io=True))
 
 
+def test_values_reshaped_after_a_float_op_are_calibrated(tmp_path: Path) -> None:
+    """Reshape emits no step, so its output needs its own observation."""
+    x = np.zeros((1, 2, 4, 4), F)
+    nodes = [
+        node("Sigmoid", ["x"], ["s"]),
+        node("Flatten", ["s"], ["f"]),
+        node("Gemm", ["f", "d"], ["y"]),
+    ]
+    model = make_model(nodes, {"x": x}, {"d": noise("reshape", 32, 3)}, ["y"])
+    samples = [calibration(8)[:, :, :, :4, :4]]
+    result = compile_model(model, name="m", calibration=samples, quantize=DIFFERENTIAL)
+    probe = samples[0][:1]
+    output = build(result, tmp_path, ["-O1"]).run([probe])[0][0]
+    expected = ort_run(model, {"x": probe[0]})[0]
+    assert np.abs(output - expected).max() < 0.1 * (np.ptp(expected) + 1e-3)
+
+
+def test_a_clip_excluding_zero_is_not_absorbed_by_saturation(tmp_path: Path) -> None:
+    """Quantized ranges contain zero, so saturating cannot implement Clip(0.5, 1)."""
+    x = np.zeros((1, 1, 4, 4), F)
+    bounds = {"lo": np.array(0.5, F), "hi": np.array(1.0, F)}
+    nodes = [
+        node("Conv", ["x", "w"], ["c"], kernel_shape=[1, 1]),
+        node("Clip", ["c", "lo", "hi"], ["y"]),
+    ]
+    model = make_model(nodes, {"x": x}, {"w": np.ones((1, 1, 1, 1), F), **bounds}, ["y"])
+    samples = [np.random.default_rng(0).uniform(-1, 1, (32, 1, 1, 4, 4)).astype(F)]
+    result = compile_model(model, name="m", calibration=samples, quantize=DIFFERENTIAL)
+    assert "Clip" in {item.op for item in result.graph.nodes}
+    output = build(result, tmp_path, ["-O1"]).run([samples[0][:1]])[0][0]
+    assert output.min() >= 0.49 and output.max() <= 1.01
+
+
+def test_exported_graph_has_unique_node_names() -> None:
+    """Split lowers to several Slices that inherit one name, which onnxruntime rejects."""
+    x = np.zeros((1, 2, 4, 4), F)
+    nodes = [
+        node("Split", ["x"], ["a", "b"], axis=1, num_outputs=2, name="split"),
+        node("Add", ["a", "b"], ["y"]),
+    ]
+    model = make_model(nodes, {"x": x}, {}, ["y"], opset=18)
+    samples = [calibration(8)[:, :, :, :4, :4]]
+    exported = to_onnx(quantized_graph(model, samples, DIFFERENTIAL))
+    names = [item.name for item in exported.graph.node]
+    assert len(names) == len(set(names))
+
+
 def test_percentile_range_is_narrower_than_minmax_under_outliers() -> None:
     w = np.ones((1, 1, 1, 1), F)
     model = make_model(

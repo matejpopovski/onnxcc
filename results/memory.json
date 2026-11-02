@@ -1,0 +1,82 @@
+{
+  "fashion_cnn": {
+    "float32": {
+      "arena_bytes": 62720,
+      "scratch_bytes": 0,
+      "naive_bytes": 107200,
+      "peak_live_bytes": 62720,
+      "constant_bytes": 188136,
+      "strategy": {
+        "F": "greedy-by-size"
+      },
+      "arena_without_in_place": 62720,
+      "per_strategy_bytes": {
+        "greedy-by-size": 62720,
+        "first-fit-by-start": 62720,
+        "greedy-by-lifetime": 62720,
+        "greedy-by-area": 62720,
+        "greedy-by-conflict": 62720,
+        "naive": 105472
+      }
+    },
+    "int8": {
+      "arena_bytes": 18816,
+      "scratch_bytes": 3136,
+      "naive_bytes": 30730,
+      "peak_live_bytes": 18816,
+      "constant_bytes": 48904,
+      "strategy": {
+        "Q": "greedy-by-size"
+      },
+      "arena_without_in_place": 18816,
+      "per_strategy_bytes": {
+        "greedy-by-size": 15680,
+        "first-fit-by-start": 16464,
+        "greedy-by-lifetime": 15680,
+        "greedy-by-area": 15680,
+        "greedy-by-conflict": 15680,
+        "naive": 27162
+      }
+    }
+  },
+  "cifar_mobilenet": {
+    "float32": {
+      "arena_bytes": 262144,
+      "scratch_bytes": 0,
+      "naive_bytes": 1064064,
+      "peak_live_bytes": 262144,
+      "constant_bytes": 328144,
+      "strategy": {
+        "F": "greedy-by-size"
+      },
+      "arena_without_in_place": 262144,
+      "per_strategy_bytes": {
+        "greedy-by-size": 262144,
+        "first-fit-by-start": 262144,
+        "greedy-by-lifetime": 311296,
+        "greedy-by-area": 311296,
+        "greedy-by-conflict": 311296,
+        "naive": 958272
+      }
+    },
+    "int8": {
+      "arena_bytes": 69632,
+      "scratch_bytes": 4096,
+      "naive_bytes": 273194,
+      "peak_live_bytes": 69632,
+      "constant_bytes": 100832,
+      "strategy": {
+        "Q": "greedy-by-size"
+      },
+      "arena_without_in_place": 69632,
+      "per_strategy_bytes": {
+        "greedy-by-size": 65536,
+        "first-fit-by-start": 68608,
+        "greedy-by-lifetime": 77824,
+        "greedy-by-area": 65536,
+        "greedy-by-conflict": 77824,
+        "naive": 242650
+      }
+    }
+  }
+}

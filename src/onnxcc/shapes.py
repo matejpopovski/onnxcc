@@ -58,7 +58,7 @@ def _binary(graph: Graph, node: Node) -> None:
     _set(graph, node, shape, graph.values[node.inputs[0]].dtype)
 
 
-def _window(node: Node, in_shape: Shape, kernel: list[int]) -> list[int]:
+def _window(node: Node, in_shape: Shape, kernel: list[int], pool: bool = False) -> list[int]:
     """Resolve strides, dilations and pads, store them, and return the output spatial shape."""
     spatial = in_shape[2:]
     if len(spatial) not in (1, 2) or len(kernel) != len(spatial):
@@ -87,10 +87,9 @@ def _window(node: Node, in_shape: Shape, kernel: list[int]) -> list[int]:
         if padded < 0:
             raise CompileError(f"{node.name}: window larger than padded input")
         out = (padded + stride - 1) // stride + 1 if ceil_mode else padded // stride + 1
-        if pads[axis] >= extent or pads[axis + len(spatial)] >= extent:
-            raise UnsupportedError(f"{node.name}: padding must be smaller than the window")
         taps = range(0, extent, dilations[axis])
-        for position in range(out):
+        for position in range(out if pool else 0):
+            # A convolution over pure padding is just its bias. A pool has no value to return.
             first = position * stride - pads[axis]
             if not any(0 <= first + tap < dim for tap in taps):
                 raise UnsupportedError(f"{node.name}: a window covers no input element")
@@ -130,7 +129,7 @@ def _pool(graph: Graph, node: Node) -> None:
     if node.attrs.get("channels_last", 0):
         raise UnsupportedError(f"{node.name}: channels_last is not supported")
     kernel = [int(item) for item in node.attrs["kernel_shape"]]
-    spatial = _window(node, x_shape, kernel)
+    spatial = _window(node, x_shape, kernel, pool=True)
     _set(graph, node, (*x_shape[:2], *spatial), graph.values[node.inputs[0]].dtype)
 
 

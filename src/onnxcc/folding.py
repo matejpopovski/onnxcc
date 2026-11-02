@@ -11,6 +11,7 @@ from collections.abc import Callable
 from typing import Any
 
 import numpy as np
+import onnx
 
 from .errors import UnsupportedError
 from .ir import Node
@@ -102,8 +103,6 @@ def _transpose(node: Node, args: list[Array | None]) -> Array:
 
 
 def _cast(node: Node, args: list[Array | None]) -> Array:
-    import onnx
-
     data = args[0]
     assert data is not None
     return data.astype(onnx.helper.tensor_dtype_to_np_dtype(node.attrs["to"]))

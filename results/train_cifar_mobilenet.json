@@ -1,0 +1,108 @@
+{
+  "model": "cifar_mobilenet",
+  "seed": 0,
+  "parameters": 83722,
+  "threads": 4,
+  "epochs": 16,
+  "final_test_accuracy": 0.8428,
+  "train_seconds": 3623.9138834160112,
+  "torch": "2.15.0",
+  "history": [
+    {
+      "epoch": 0,
+      "loss": 1.9253090396905557,
+      "test_accuracy": 0.4289,
+      "seconds": 218.6053138339994
+    },
+    {
+      "epoch": 1,
+      "loss": 1.556513088483077,
+      "test_accuracy": 0.5478,
+      "seconds": 240.21152808300394
+    },
+    {
+      "epoch": 2,
+      "loss": 1.3339141093767606,
+      "test_accuracy": 0.6228,
+      "seconds": 212.35660495799675
+    },
+    {
+      "epoch": 3,
+      "loss": 1.1796664010255764,
+      "test_accuracy": 0.6496,
+      "seconds": 226.64237804200093
+    },
+    {
+      "epoch": 4,
+      "loss": 1.0638151465318142,
+      "test_accuracy": 0.7229,
+      "seconds": 205.41958200000226
+    },
+    {
+      "epoch": 5,
+      "loss": 0.9881429595825,
+      "test_accuracy": 0.7207,
+      "seconds": 193.86237300000357
+    },
+    {
+      "epoch": 6,
+      "loss": 0.9302463595683758,
+      "test_accuracy": 0.7469,
+      "seconds": 235.21416120800131
+    },
+    {
+      "epoch": 7,
+      "loss": 0.8887237221766741,
+      "test_accuracy": 0.7784,
+      "seconds": 200.84773933300312
+    },
+    {
+      "epoch": 8,
+      "loss": 0.8496355683375627,
+      "test_accuracy": 0.7823,
+      "seconds": 247.03455745899555
+    },
+    {
+      "epoch": 9,
+      "loss": 0.8165780096482008,
+      "test_accuracy": 0.806,
+      "seconds": 390.2954693339998
+    },
+    {
+      "epoch": 10,
+      "loss": 0.7872450730739495,
+      "test_accuracy": 0.8151,
+      "seconds": 354.16380675000255
+    },
+    {
+      "epoch": 11,
+      "loss": 0.7563166901087149,
+      "test_accuracy": 0.8303,
+      "seconds": 191.5736048750041
+    },
+    {
+      "epoch": 12,
+      "loss": 0.7316439127310729,
+      "test_accuracy": 0.8354,
+      "seconds": 202.99924979099887
+    },
+    {
+      "epoch": 13,
+      "loss": 0.710063516940826,
+      "test_accuracy": 0.8426,
+      "seconds": 181.17028850000497
+    },
+    {
+      "epoch": 14,
+      "loss": 0.6950303748632088,
+      "test_accuracy": 0.8413,
+      "seconds": 177.3621610409973
+    },
+    {
+      "epoch": 15,
+      "loss": 0.6903106762812687,
+      "test_accuracy": 0.8428,
+      "seconds": 146.1550652079968
+    }
+  ]
+}

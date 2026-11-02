@@ -51,6 +51,7 @@ def conv_cases() -> list[Case]:
         ),
         ("valid", dict(kernel_shape=[3, 3], auto_pad="VALID"), (1, 2, 9, 7), 3),
         ("batch2", dict(kernel_shape=[3, 3], pads=[1, 1, 1, 1]), (2, 2, 6, 6), 3),
+        ("pad_beyond_kernel", dict(kernel_shape=[1, 3], pads=[2, 4, 3, 5]), (1, 2, 5, 5), 3),
     ]
     cases = []
     for name, attrs, x_shape, out_channels in grid:

@@ -1,4 +1,5 @@
-/* Runs a generated model on test vectors under QEMU and prints outputs and timer ticks.
+/* Runs a generated model on test vectors under QEMU, printing timer ticks, outputs, and the stack
+ * high-water mark.
  * vectors.h is written by experiments/embedded.py and defines:
  *   VECTOR_COUNT, MODEL_INPUT_ELEMENTS, MODEL_OUTPUT_ELEMENTS, model_input_t, model_output_t,
  *   vector_inputs[VECTOR_COUNT][MODEL_INPUT_ELEMENTS], and MODEL_RUN. */
@@ -7,13 +8,36 @@
 #include "vectors.h"
 
 extern void board_print(const char *text);
+extern uint32_t __stack_top;
 
 /* CMSDK APB timer 0 on MPS2. It counts down at the 25 MHz peripheral clock. */
 #define TIMER_CTRL (*(volatile uint32_t *)0x40000000u)
 #define TIMER_VALUE (*(volatile uint32_t *)0x40000004u)
 #define TIMER_RELOAD (*(volatile uint32_t *)0x40000008u)
 
+#define STACK_WINDOW_WORDS 16384u
+#define STACK_PAINT 0xA5A5A5A5u
+
 static model_output_t output[MODEL_OUTPUT_ELEMENTS];
+
+/* Fill unused stack with a pattern. Whatever is overwritten later is the high-water mark. */
+static void paint_stack(void)
+{
+    uint32_t marker = 0u;
+    volatile uint32_t *cursor = &__stack_top - STACK_WINDOW_WORDS;
+    while (cursor < &marker - 8) {
+        *cursor++ = STACK_PAINT;
+    }
+}
+
+static uint32_t stack_high_water(void)
+{
+    const volatile uint32_t *cursor = &__stack_top - STACK_WINDOW_WORDS;
+    while (*cursor == STACK_PAINT) {
+        ++cursor;
+    }
+    return (uint32_t)(&__stack_top - cursor) * 4u;
+}
 
 static void print_hex(uint32_t value)
 {
@@ -29,6 +53,7 @@ static void print_hex(uint32_t value)
 
 int main(void)
 {
+    paint_stack();
     TIMER_RELOAD = 0xFFFFFFFFu;
     TIMER_VALUE = 0xFFFFFFFFu;
     TIMER_CTRL = 1u;
@@ -48,5 +73,8 @@ int main(void)
         }
         board_print("\n");
     }
+    board_print("stack ");
+    print_hex(stack_high_water());
+    board_print("\n");
     return 0;
 }

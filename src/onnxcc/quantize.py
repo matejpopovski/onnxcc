@@ -165,7 +165,7 @@ class Quantizer:
         limits = np.iinfo(I32)
         return self.graph.add_const("bias_q", np.clip(scaled, limits.min, limits.max).astype(I32))
 
-    def window_args(self, x: str, name: str, params: QParams) -> list[str]:
+    def window_args(self, x: str, params: QParams) -> list[str]:
         twin = self.to_int8(x)
         out_scale, out_zero = self.q_const(params)
         in_scale, in_zero = self.q_const(self.qparams[twin])
@@ -218,14 +218,14 @@ class Quantizer:
         self.nodes.append(Node(f"QLinear{node.op}", inputs, [output], {}, node.name))
 
     def average_pool(self, node: Node, params: QParams) -> None:
-        inputs = self.window_args(node.inputs[0], node.outputs[0], params)
+        inputs = self.window_args(node.inputs[0], params)
         output = self.define(node.outputs[0], params)
         keys = ("ceil_mode", "count_include_pad", "kernel_shape", "pads", "strides")
         attrs = {key: node.attrs[key] for key in keys if key in node.attrs}
         self.nodes.append(Node("QLinearAveragePool", inputs, [output], attrs, node.name))
 
     def global_pool(self, node: Node, params: QParams) -> None:
-        inputs = self.window_args(node.inputs[0], node.outputs[0], params)
+        inputs = self.window_args(node.inputs[0], params)
         output = self.define(node.outputs[0], params)
         self.nodes.append(Node("QLinearGlobalAveragePool", inputs, [output], {}, node.name))
 
@@ -264,14 +264,21 @@ class Quantizer:
         self.nodes.append(Node(node.op, inputs, [output], attrs, node.name))
 
     def absorbed_activations(self) -> dict[str, Node]:
-        """Clips fed only by a requantizing op, which saturates to the same range anyway."""
+        """Clips fed only by a requantizing op, which saturates to the same range anyway.
+
+        The quantized range always contains zero, so saturation can stand in for a clip only when
+        its bounds contain zero too. Clip(0.5, 1) has to stay a real operation.
+        """
         absorbed = {}
         for node in self.graph.nodes:
             if node.op != "Clip":
                 continue
+            low, high = clip_bounds(self.graph, node)
+            contains_zero = (low is None or low <= 0.0) and (high is None or high >= 0.0)
             producer = self.graph.producer(node.inputs[0])
             if (
-                producer is not None
+                contains_zero
+                and producer is not None
                 and producer.op in REQUANTIZING
                 and self.graph.sole_consumer(node.inputs[0]) is node
             ):

@@ -1,0 +1,74 @@
+{
+  "host": "Apple M3 Max, 36 GB, macOS, machine shared with other jobs during the run",
+  "machine": "arm64",
+  "c_flags": "-O3 -std=c99",
+  "onnxruntime": "1.31.1",
+  "threads": 1,
+  "rounds": 15,
+  "onnxruntime_binding_overhead_us": 2.351458,
+  "onnxruntime_native_library_bytes": 40771472,
+  "fashion_cnn": {
+    "float_c": {
+      "median_us": 361.756,
+      "fastest_round_us": 358.3,
+      "slowest_round_us": 371.96
+    },
+    "float_onnxruntime": {
+      "median_us": 72.01069333333334,
+      "fastest_round_us": 70.22388666666667,
+      "slowest_round_us": 73.57194333333332
+    },
+    "int8_c": {
+      "median_us": 376.13,
+      "fastest_round_us": 372.2,
+      "slowest_round_us": 381.816
+    },
+    "int8_onnxruntime_same_graph": {
+      "median_us": 36.62694333333334,
+      "fastest_round_us": 35.96277666666666,
+      "slowest_round_us": 37.73319333333334
+    },
+    "host_object_float": {
+      "__TEXT": 191984,
+      "__DATA": 62720,
+      "__OBJC": 0
+    },
+    "host_object_int8": {
+      "__TEXT": 55432,
+      "__DATA": 18816,
+      "__OBJC": 0
+    }
+  },
+  "cifar_mobilenet": {
+    "float_c": {
+      "median_us": 950.78,
+      "fastest_round_us": 942.886,
+      "slowest_round_us": 970.86
+    },
+    "float_onnxruntime": {
+      "median_us": 300.76736,
+      "fastest_round_us": 292.2041666666667,
+      "slowest_round_us": 306.72764
+    },
+    "int8_c": {
+      "median_us": 1235.63,
+      "fastest_round_us": 1225.076,
+      "slowest_round_us": 1311.403
+    },
+    "int8_onnxruntime_same_graph": {
+      "median_us": 117.96430666666667,
+      "fastest_round_us": 116.99972333333332,
+      "slowest_round_us": 120.64194666666667
+    },
+    "host_object_float": {
+      "__TEXT": 334212,
+      "__DATA": 262272,
+      "__OBJC": 0
+    },
+    "host_object_int8": {
+      "__TEXT": 110304,
+      "__DATA": 69760,
+      "__OBJC": 0
+    }
+  }
+}

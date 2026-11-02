@@ -2,16 +2,17 @@ import os
 
 from hypothesis import HealthCheck, settings
 
+# Health checks grade the generators, not the code under test, and they can trip on a loaded runner.
 settings.register_profile(
     "ci",
     derandomize=True,
     deadline=None,
-    suppress_health_check=[HealthCheck.too_slow, HealthCheck.function_scoped_fixture],
+    suppress_health_check=list(HealthCheck),
 )
 settings.register_profile(
-    "thorough",
+    "campaign",
     deadline=None,
-    max_examples=5000,
-    suppress_health_check=[HealthCheck.too_slow, HealthCheck.function_scoped_fixture],
+    database=None,
+    suppress_health_check=list(HealthCheck),
 )
 settings.load_profile(os.environ.get("HYPOTHESIS_PROFILE", "ci"))

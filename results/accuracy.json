@@ -1,0 +1,70 @@
+{
+  "fashion_cnn": {
+    "test_samples": 10000,
+    "calibration_samples": 1000,
+    "float_onnxruntime_top1": 0.9213,
+    "float_c_top1": 0.9213,
+    "float_c_vs_ort_max_abs_logit_diff": 4.649162292480469e-06,
+    "float_c_vs_ort_prediction_agreement": 1.0,
+    "int8": {
+      "percentile99.99_per_channel": {
+        "c_top1": 0.9202,
+        "accuracy_drop_points": 0.10999999999999899,
+        "onnxruntime_same_graph_top1": 0.9199,
+        "c_vs_ort_prediction_agreement": 0.9997
+      },
+      "minmax_per_channel": {
+        "c_top1": 0.9196,
+        "accuracy_drop_points": 0.17000000000000348,
+        "onnxruntime_same_graph_top1": 0.92,
+        "c_vs_ort_prediction_agreement": 0.9994
+      },
+      "percentile99.99_per_tensor": {
+        "c_top1": 0.9209,
+        "accuracy_drop_points": 0.039999999999995595,
+        "onnxruntime_same_graph_top1": 0.9208,
+        "c_vs_ort_prediction_agreement": 0.9995
+      },
+      "minmax_per_tensor": {
+        "c_top1": 0.9205,
+        "accuracy_drop_points": 0.08000000000000229,
+        "onnxruntime_same_graph_top1": 0.9206,
+        "c_vs_ort_prediction_agreement": 0.9981
+      }
+    }
+  },
+  "cifar_mobilenet": {
+    "test_samples": 10000,
+    "calibration_samples": 1000,
+    "float_onnxruntime_top1": 0.8428,
+    "float_c_top1": 0.8428,
+    "float_c_vs_ort_max_abs_logit_diff": 5.7220458984375e-06,
+    "float_c_vs_ort_prediction_agreement": 1.0,
+    "int8": {
+      "percentile99.99_per_channel": {
+        "c_top1": 0.8429,
+        "accuracy_drop_points": -0.009999999999998899,
+        "onnxruntime_same_graph_top1": 0.8434,
+        "c_vs_ort_prediction_agreement": 0.994
+      },
+      "minmax_per_channel": {
+        "c_top1": 0.8445,
+        "accuracy_drop_points": -0.17000000000000348,
+        "onnxruntime_same_graph_top1": 0.8433,
+        "c_vs_ort_prediction_agreement": 0.9913
+      },
+      "percentile99.99_per_tensor": {
+        "c_top1": 0.842,
+        "accuracy_drop_points": 0.08000000000000229,
+        "onnxruntime_same_graph_top1": 0.8412,
+        "c_vs_ort_prediction_agreement": 0.9929
+      },
+      "minmax_per_tensor": {
+        "c_top1": 0.8407,
+        "accuracy_drop_points": 0.20999999999999908,
+        "onnxruntime_same_graph_top1": 0.8414,
+        "c_vs_ort_prediction_agreement": 0.9889
+      }
+    }
+  }
+}

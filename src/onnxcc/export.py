@@ -14,13 +14,15 @@ INTERNAL_ATTRS = ("materialize", "resolved_axes", "resolved_pads", "resolved_spl
 
 def to_onnx(graph: Graph) -> onnx.ModelProto:
     nodes = []
-    for node in graph.nodes:
+    for index, node in enumerate(graph.nodes):
         attrs = {key: value for key, value in node.attrs.items() if key not in INTERNAL_ATTRS}
         if node.op in ("QLinearAveragePool",):
             attrs.pop("dilations", None)
         domain = "com.microsoft" if node.op in MICROSOFT_OPS else ""
+        # Lowering can give several nodes one source name, which ONNX forbids.
+        name = f"{node.name}_{index}"
         nodes.append(
-            helper.make_node(node.op, node.inputs, node.outputs, node.name, domain=domain, **attrs)
+            helper.make_node(node.op, node.inputs, node.outputs, name, domain=domain, **attrs)
         )
 
     def info(name: str) -> onnx.ValueInfoProto:

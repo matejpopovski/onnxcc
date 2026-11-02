@@ -21,6 +21,11 @@ from onnxcc.memcheck import verify
 from onnxcc.toolchain import SANITIZE_FLAGS, STRICT_FLAGS, Binary, harness_source, link_harness
 
 
+def fuzz_budget(examples: int) -> int:
+    """Example count for property tests. CI uses it as written, campaigns scale it up."""
+    return examples * int(os.environ.get("ONNXCC_FUZZ_SCALE", "1"))
+
+
 def make_model(
     nodes: Sequence[onnx.NodeProto],
     inputs: Mapping[str, np.ndarray],

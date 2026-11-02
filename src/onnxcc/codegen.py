@@ -18,6 +18,7 @@ import numpy as np
 
 from .errors import CompileError, UnsupportedError
 from .fixedpoint import add_multipliers, multiplier
+from .folding import slice_ranges
 from .ir import F32, I8, I32, Graph, Node, Value
 from .liveness import Liveness, arena_of, data_inputs, is_alias
 from .passes import clip_bounds
@@ -283,6 +284,8 @@ class Emitter:
                     f"{graph.values[node.outputs[0]].size} {graph.values[node.inputs[0]].size} "
                     "Reshape */"
                 )
+                if self.observe:
+                    lines.extend(self._observation(node.outputs[0]))
                 continue
             index = steps[id(node)]
             output = node.outputs[0]
@@ -574,8 +577,6 @@ def _transpose(e: Emitter, node: Node) -> str:
 
 
 def _slice(e: Emitter, node: Node) -> str:
-    from .folding import slice_ranges
-
     x, y = node.inputs[0], node.outputs[0]
     shape = e.graph.values[x].shape
     assert shape is not None
@@ -613,13 +614,20 @@ def _pad(e: Emitter, node: Node) -> str:
     return f"{fn}({e.ref(y)}, {e.ref(x)}, {literal}, {size}, {params});"
 
 
+def _shape_of(e: Emitter, name: str) -> Shape:
+    shape = e.graph.values[name].shape
+    assert shape is not None
+    return shape
+
+
 def _concat_layout(e: Emitter, inputs: list[str], axis: int) -> tuple[str, str, int, str]:
-    shapes = [e.graph.values[item].shape for item in inputs]
-    assert all(shape is not None for shape in shapes)
-    blocks = _prod(shapes[0][:axis])  # type: ignore[index]
-    chunks = e.int_array([_prod(shape[axis:]) for shape in shapes])  # type: ignore[index]
+    shapes = [_shape_of(e, item) for item in inputs]
+    blocks = _prod(shapes[0][:axis])
+    chunks = e.int_array([_prod(shape[axis:]) for shape in shapes])
     pointers = ", ".join(e.ref(item) for item in inputs)
-    return chunks, pointers, blocks, C_TYPES[e.graph.values[inputs[0]].dtype]  # type: ignore[index]
+    dtype = e.graph.values[inputs[0]].dtype
+    assert dtype is not None
+    return chunks, pointers, blocks, C_TYPES[dtype]
 
 
 def _concat(e: Emitter, node: Node) -> str:

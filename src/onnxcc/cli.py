@@ -65,7 +65,7 @@ def render_datasheet(result: CompileResult) -> str:
     rows = [
         ("entry point", f"{result.c_name}_run"),
         ("steps", sheet["steps"]),
-        ("arena", f"{sheet['arena_bytes']} bytes"),
+        ("static RAM", f"{sheet['arena_bytes']} bytes, {sheet['scratch_bytes']} of it scratch"),
         ("live peak (lower bound)", f"{sheet['peak_live_bytes']} bytes"),
         ("without planner", f"{sheet['naive_bytes']} bytes"),
         ("constants", f"{sheet['constant_bytes']} bytes"),

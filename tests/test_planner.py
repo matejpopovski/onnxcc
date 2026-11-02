@@ -11,6 +11,8 @@ from hypothesis import strategies as st
 from onnxcc.memcheck import PlanViolation, check_intervals
 from onnxcc.planner import ORDERINGS, Buffer, Plan, make_plan, naive, peak_live
 
+from .support import fuzz_budget
+
 
 def lifetimes(buffers: list[Buffer]) -> dict[str, tuple[int, int, int]]:
     return {b.key: (b.size, b.first, b.last) for b in buffers}
@@ -29,14 +31,14 @@ def buffer_sets(draw: st.DrawFn, max_size: int = 60) -> list[Buffer]:
 
 
 @pytest.mark.parametrize("strategy", ["best", "naive", *ORDERINGS])
-@settings(max_examples=300)
+@settings(max_examples=fuzz_budget(300))
 @given(buffers=buffer_sets())
 def test_no_two_live_buffers_overlap(strategy: str, buffers: list[Buffer]) -> None:
     plan = make_plan(buffers, strategy)
     check_intervals(lifetimes(buffers), plan.offsets, plan.size)
 
 
-@settings(max_examples=300)
+@settings(max_examples=fuzz_budget(300))
 @given(buffers=buffer_sets())
 def test_plan_lies_between_lower_bound_and_naive(buffers: list[Buffer]) -> None:
     plan = make_plan(buffers)
@@ -50,7 +52,7 @@ def test_planning_is_deterministic_and_order_independent(buffers: list[Buffer]) 
     assert make_plan(buffers).size == make_plan(shuffled).size
 
 
-@settings(max_examples=300)
+@settings(max_examples=fuzz_budget(300))
 @given(buffers=buffer_sets(max_size=40), seed=st.integers(0, 2**32 - 1))
 def test_checker_rejects_a_corrupted_plan(buffers: list[Buffer], seed: int) -> None:
     """A checker that accepts everything would make the tests above meaningless."""

@@ -10,7 +10,8 @@ from .compiler import CompileResult
 
 def datasheet(result: CompileResult) -> dict[str, Any]:
     memory = result.memory
-    kernels = sorted(set(re.findall(r"^\s+(?:\{ .*?; )?ox_(\w+)\(", result.source, re.M)))
+    run_body = result.source.rsplit("_run(", 1)[-1]
+    kernels = sorted(set(re.findall(r"^\s+(?:\{ .*?; )?ox_(\w+)\(", run_body, re.M)))
     return {
         "entry_point": f"{result.c_name}_run",
         "inputs": [{"type": s.c_type, "shape": list(s.shape)} for s in result.inputs],

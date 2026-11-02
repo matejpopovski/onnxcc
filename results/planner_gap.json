@@ -1,0 +1,7 @@
+{
+  "instances": 1000,
+  "buffers_per_instance": 7,
+  "optimal_fraction": 0.986,
+  "mean_ratio_to_optimal": 1.0009824494114548,
+  "worst_ratio_to_optimal": 1.155378486055777
+}

@@ -1,0 +1,242 @@
+{
+  "toolchain": "arm-none-eabi-gcc (GCC) 16.2.0",
+  "flags": "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -ffreestanding -fno-builtin -fno-stack-protector -fno-tree-loop-distribute-patterns -fno-common",
+  "qemu": "QEMU emulator version 11.1.3",
+  "qemu_note": "instruction counts from -icount shift=0 under TCG emulation, not cycles",
+  "fashion_cnn": {
+    "-Os": {
+      "float32": {
+        "object_sections": {
+          ".text": 1356,
+          ".data": 0,
+          ".bss": 62720,
+          ".rodata": 188520
+        },
+        "linked_image_sections": {
+          ".text": 1696,
+          ".rodata": 213644,
+          ".bss": 62760
+        },
+        "largest_stack_frame_bytes": 176,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 248,
+        "qemu_vs_host_max_abs_diff": 1.9073486328125e-06,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 14303260
+      },
+      "int8_float_interface": {
+        "object_sections": {
+          ".text": 1696,
+          ".data": 0,
+          ".bss": 18816,
+          ".rodata": 49288
+        },
+        "linked_image_sections": {
+          ".text": 2036,
+          ".rodata": 74412,
+          ".bss": 18856
+        },
+        "largest_stack_frame_bytes": 184,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 272,
+        "qemu_vs_host_max_abs_diff": 0.0,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 20954640
+      },
+      "int8_integer_only": {
+        "object_sections": {
+          ".text": 1480,
+          ".data": 0,
+          ".bss": 18816,
+          ".rodata": 49288
+        },
+        "linked_image_sections": {
+          ".text": 1820,
+          ".rodata": 55591,
+          ".bss": 18826
+        },
+        "largest_stack_frame_bytes": 184,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 280,
+        "qemu_vs_host_bit_exact": true,
+        "qemu_instructions_per_inference_estimate": 20930460
+      }
+    },
+    "-O2": {
+      "float32": {
+        "object_sections": {
+          ".text": 1760,
+          ".data": 0,
+          ".bss": 62720,
+          ".rodata": 188520
+        },
+        "linked_image_sections": {
+          ".text": 2256,
+          ".rodata": 213648,
+          ".bss": 62760
+        },
+        "largest_stack_frame_bytes": 208,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 308,
+        "qemu_vs_host_max_abs_diff": 1.9073486328125e-06,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 13875100
+      },
+      "int8_float_interface": {
+        "object_sections": {
+          ".text": 2152,
+          ".data": 0,
+          ".bss": 18816,
+          ".rodata": 49288
+        },
+        "linked_image_sections": {
+          ".text": 2648,
+          ".rodata": 74416,
+          ".bss": 18856
+        },
+        "largest_stack_frame_bytes": 216,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 352,
+        "qemu_vs_host_max_abs_diff": 0.0,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 14543540
+      },
+      "int8_integer_only": {
+        "object_sections": {
+          ".text": 1928,
+          ".data": 0,
+          ".bss": 18816,
+          ".rodata": 49288
+        },
+        "linked_image_sections": {
+          ".text": 2428,
+          ".rodata": 55600,
+          ".bss": 18826
+        },
+        "largest_stack_frame_bytes": 216,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 352,
+        "qemu_vs_host_bit_exact": true,
+        "qemu_instructions_per_inference_estimate": 14518900
+      }
+    }
+  },
+  "cifar_mobilenet": {
+    "-Os": {
+      "float32": {
+        "object_sections": {
+          ".text": 1840,
+          ".data": 0,
+          ".bss": 262144,
+          ".rodata": 329616
+        },
+        "linked_image_sections": {
+          ".text": 2180,
+          ".rodata": 427956,
+          ".bss": 262184
+        },
+        "largest_stack_frame_bytes": 184,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 244,
+        "qemu_vs_host_max_abs_diff": 2.384185791015625e-06,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 58376960
+      },
+      "int8_float_interface": {
+        "object_sections": {
+          ".text": 2612,
+          ".data": 0,
+          ".bss": 69632,
+          ".rodata": 102432
+        },
+        "linked_image_sections": {
+          ".text": 2952,
+          ".rodata": 200772,
+          ".bss": 69672
+        },
+        "largest_stack_frame_bytes": 184,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 296,
+        "qemu_vs_host_max_abs_diff": 0.0,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 89718200
+      },
+      "int8_integer_only": {
+        "object_sections": {
+          ".text": 2372,
+          ".data": 0,
+          ".bss": 69632,
+          ".rodata": 102432
+        },
+        "linked_image_sections": {
+          ".text": 2712,
+          ".rodata": 127039,
+          ".bss": 69642
+        },
+        "largest_stack_frame_bytes": 184,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 288,
+        "qemu_vs_host_bit_exact": true,
+        "qemu_instructions_per_inference_estimate": 89628120
+      }
+    },
+    "-O2": {
+      "float32": {
+        "object_sections": {
+          ".text": 2340,
+          ".data": 0,
+          ".bss": 262144,
+          ".rodata": 329616
+        },
+        "linked_image_sections": {
+          ".text": 2836,
+          ".rodata": 427960,
+          ".bss": 262184
+        },
+        "largest_stack_frame_bytes": 208,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 300,
+        "qemu_vs_host_max_abs_diff": 2.384185791015625e-06,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 57466680
+      },
+      "int8_float_interface": {
+        "object_sections": {
+          ".text": 3064,
+          ".data": 0,
+          ".bss": 69632,
+          ".rodata": 102432
+        },
+        "linked_image_sections": {
+          ".text": 3560,
+          ".rodata": 200776,
+          ".bss": 69672
+        },
+        "largest_stack_frame_bytes": 216,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 356,
+        "qemu_vs_host_max_abs_diff": 0.0,
+        "qemu_vs_host_same_prediction": true,
+        "qemu_instructions_per_inference_estimate": 65025080
+      },
+      "int8_integer_only": {
+        "object_sections": {
+          ".text": 2824,
+          ".data": 0,
+          ".bss": 69632,
+          ".rodata": 102432
+        },
+        "linked_image_sections": {
+          ".text": 3324,
+          ".rodata": 127048,
+          ".bss": 69642
+        },
+        "largest_stack_frame_bytes": 216,
+        "undefined_symbols_in_object": [],
+        "qemu_stack_high_water_bytes": 348,
+        "qemu_vs_host_bit_exact": true,
+        "qemu_instructions_per_inference_estimate": 64935800
+      }
+    }
+  }
+}

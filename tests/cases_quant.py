@@ -103,6 +103,7 @@ def conv_cases() -> list[Case]:
             strides=[2, 2],
         ),
         qlinear_conv("batch2", (2, 2, 6, 6), 3, kernel_shape=[3, 3]),
+        qlinear_conv("pad_beyond_kernel", (1, 2, 5, 5), 3, kernel_shape=[1, 3], pads=[2, 4, 3, 5]),
         qlinear_conv("gain_above_one", (1, 1, 6, 6), 2, y_scale=0.0001, kernel_shape=[1, 1]),
         qlinear_conv("tiny_gain", (1, 2, 8, 8), 3, y_scale=40.0, kernel_shape=[3, 3]),
     ]

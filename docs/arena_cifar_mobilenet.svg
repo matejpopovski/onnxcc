@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="ui-monospace, Menlo, monospace" font-size="11">
+<rect width="760" height="300" fill="#fbfaf6"/>
+<text x="64" y="20" font-size="13" fill="#1c1c1c">cifar_mobilenet int8: 65536 byte tensor arena, step on x, offset on y</text>
+<rect x="64" y="34" width="680" height="232" fill="#f0eee6" stroke="#8a8778"/>
+<rect x="64.0" y="34.0" width="45.3" height="10.9" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="86.7" y="208.0" width="136.0" height="58.0" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="109.3" y="34.0" width="45.3" height="58.0" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="132.0" y="92.0" width="45.3" height="58.0" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="154.7" y="34.0" width="45.3" height="58.0" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="200.0" y="34.0" width="45.3" height="174.0" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="222.7" y="208.0" width="45.3" height="43.5" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="245.3" y="164.5" width="136.0" height="21.8" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="268.0" y="34.0" width="45.3" height="65.2" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="290.7" y="99.2" width="45.3" height="65.2" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="313.3" y="34.0" width="45.3" height="21.8" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="358.7" y="34.0" width="45.3" height="65.2" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="381.3" y="99.2" width="45.3" height="16.3" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="404.0" y="88.4" width="136.0" height="9.1" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="426.7" y="34.0" width="45.3" height="27.2" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="449.3" y="61.2" width="45.3" height="27.2" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="472.0" y="34.0" width="45.3" height="9.1" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="517.3" y="34.0" width="45.3" height="27.2" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="540.0" y="61.2" width="45.3" height="6.8" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="562.7" y="68.0" width="136.0" height="4.5" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="585.3" y="34.0" width="45.3" height="13.6" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="608.0" y="47.6" width="45.3" height="13.6" fill="#c2703d" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="630.7" y="34.0" width="45.3" height="4.5" fill="#5b8a4a" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="676.0" y="34.0" width="45.3" height="1.0" fill="#8a5a9e" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<rect x="698.7" y="34.3" width="45.3" height="1.0" fill="#2f6f8f" fill-opacity="0.8" stroke="#1c1c1c" stroke-width="0.5"/>
+<text x="64" y="288" fill="#444">step 0</text>
+<text x="744" y="288" text-anchor="end" fill="#444">step 29</text>
+<text x="8" y="44" fill="#444">0</text>
+<text x="8" y="266" fill="#444">65536</text>
+<text x="8" y="280" fill="#444">bytes</text>
+</svg>
