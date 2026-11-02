@@ -1,0 +1,12 @@
+{
+  "exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "seconds": 1013,
+  "budget_scale": 12,
+  "property_tests": 15,
+  "passing_examples": 34360,
+  "failing_examples": 0
+}
